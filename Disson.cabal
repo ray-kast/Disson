@@ -1,4 +1,4 @@
-cabal-version: >=1.10
+cabal-version: >=2.0
 name: Disson
 version: 0.1.0.0
 license: AGPL-3
@@ -9,7 +9,7 @@ build-type: Simple
 extra-source-files:
     CHANGELOG.md
 
-executable Disson
+executable disson
     main-is: Main.hs
     hs-source-dirs: src
     other-modules:
@@ -18,4 +18,6 @@ executable Disson
         Waves
     default-language: Haskell2010
     build-depends:
-        base >=4.12 && <4.13
+        base ^>=4.14,
+        hmatrix ^>= 0.20.0,
+        vector ^>= 0.12.0

@@ -25,23 +25,25 @@ main = do table <- genRows 0
         tone2 = take 32 tone2'
         tone3 = take 32 tone3'
 
-        dt = dissonTones (\f -> 31.0 * logBase 2.0 f) (\a -> a)
+        ftoe f = 11.17268 * log (1.0 + (f * 46.06538) / (f + 14678.49))
 
-        genRows :: Integer -> IO [[Float]]
+        dt = dissonTones (\f -> 12.0 * ftoe (f * 440)) (\a -> a)
+
+        genRows :: Int -> IO [[Float]]
         genRows r
           | r < resY = do row <- genRow r 0
                           rest <- genRows $ r + 1
                           return (row:rest)
           | otherwise = return []
 
-        genRow :: Integer -> Integer -> IO [Float]
+        genRow :: Int -> Int -> IO [Float]
         genRow r c
           | c < resX = do cell <- genCell r c
                           rest <- genRow r $ c + 1
                           return (cell:rest)
           | otherwise = return []
 
-        genCell :: Integer -> Integer -> IO Float
+        genCell :: Int -> Int -> IO Float
         genCell r c = do if (r + c) `mod` 100 == 0
                            then hPutStr stderr $ "\r\x1b[2Kx, y = " ++ show x ++ ", " ++ show y
                            else return ()
