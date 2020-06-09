@@ -11,8 +11,9 @@ main = do table <- genRows 0
           let table' = postprocess table
           printTable table'
           hPutStr stderr "\r\x1b[2K"
-  where resX = 1000 :: Integer
-        resY = 1000 :: Integer
+
+  where resX = 1000 :: Int
+        resY = 1000 :: Int
 
         mapX = relerp 0.0 (fromIntegral $ resX - 1) 0.0 2.0 . fromIntegral
         mapY = relerp 0.0 (fromIntegral $ resY - 1) 0.0 2.0 . fromIntegral
